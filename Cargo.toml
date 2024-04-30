@@ -1,0 +1,17 @@
+[package]
+name = 'sankaku'
+version = '0.1.0'
+authors = ['Lukas Niegsch']
+description = 'A triangulation library for Rust.'
+repository = 'https://github.com/lukas-niegsch/sankaku'
+categories = ['triangulation']
+license = 'MIT'
+include = [
+    '/Cargo.toml',
+    '/LICENSE',
+    '/src/**',
+]
+rust-version = '1.77'
+edition = '2021'
+
+[dependencies]
