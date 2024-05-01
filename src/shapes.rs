@@ -18,11 +18,11 @@ impl Shape for Sphere {
     }
 
     fn normal_at(&self, u: f32, v: f32) -> Result<Normal, Error> {
-        let psi = 2.0 * u * std::f32::consts::PI;
+        let psi = u * std::f32::consts::PI;
         let phi = 2.0 * v * std::f32::consts::PI;
         let x = psi.sin() * phi.cos();
         let y = psi.sin() * phi.sin();
-        let z = phi.cos();
+        let z = psi.cos();
         return Ok([x, y, z]);
     }
     
