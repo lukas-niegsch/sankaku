@@ -5,12 +5,21 @@ pub enum Error {
     #[error("Generic Error: {0}")]
     Generic(String),
     /// Error for when path distance is too small. 
-    #[error("Value Error: distance {0} >= 0.0 is required")]
+    #[error("distance {0} >= 0.0 is required")]
     LowerBoundError(f32),
     /// Error for when path distance is too large.
-    #[error("Value Error: distance {0} <= 1.0 is required")]
+    #[error("distance {0} <= 1.0 is required")]
     UpperBoundError(f32),
+    /// Error for when a mesh has too little triangles.
+    #[error("requires {requires} triangles but only has {expected}")]
+    MinimalTriangleError {
+        requires: u32,
+        expected: u32
+    }
 }
+
+/// A vector for a point in 3D space.
+pub type Point = [f32; 3];
 
 /// A vector for one mesh vertex.
 pub type Vertex = [f32; 3];
@@ -36,6 +45,9 @@ pub trait Shape {
     /// Returns the normal after walking on the
     /// surface given by the shape coordinates.
     fn normal_at(&self, u: f32, v: f32) -> Result<Normal, Error>;
+    /// Returns the fundamental polygon that yields
+    /// toplogy of the cluing diagram for the shape.
+    fn topology(&self) -> Vec<i32>;
 }
 
 /// A triangle storing its normal and vertices.
@@ -49,9 +61,7 @@ pub struct Triangle {
 /// A model stores the triangulated mesh of shapes.
 pub struct Model {
     /// The triangulated mesh of the model.
-    pub mesh: Vec<Triangle>,
-    /// The original shape of the model.
-    pub shape: dyn Shape
+    pub mesh: Vec<Triangle>
 }
 
 pub mod algos;
