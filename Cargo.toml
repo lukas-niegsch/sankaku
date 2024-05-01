@@ -15,3 +15,7 @@ rust-version = '1.77'
 edition = '2021'
 
 [dependencies]
+thiserror = "1.0"
+
+[dev-dependencies]
+stl_io = "0.7"
